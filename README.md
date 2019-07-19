@@ -1,4 +1,4 @@
-# pg_dump-to-google_sdk
+# pg_dump-to-google_gcs
 
 
 ## Description:
@@ -8,7 +8,7 @@ Dockerfile with Alpine Linux postgres-client that used the postgres-client execu
 -------
 ## Directions:
 1. join or init a docker swarm
-1. set the environment variables in the terminal session
+1. set the required environment variables.  These are passed as flags to the pg_dump command
 
         export $PSQL_REMOTE_HOST=<psql>
         export $PSQL_USERNAME=<username>

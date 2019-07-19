@@ -15,7 +15,7 @@ secrets:
     external: true
 
 services:
-  pg_dump-to-google_sdk:
+  pg_dump-to-google_gcs:
     image: thestevenbell/pg_dump-to-google_sdk:latest
     environment:
       PSQL_REMOTE_HOST_FILE: /run/secrets/PSQL_REMOTE_HOST
