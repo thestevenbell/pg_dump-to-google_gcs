@@ -7,5 +7,5 @@ docker secret rm PGPASSWORD
 
 echo -n $PSQL_REMOTE_HOST | docker secret create PSQL_REMOTE_HOST -
 echo -n $PSQL_USERNAME | docker secret create PSQL_USERNAME -
-echo -n $PSQL_DBNAME | docker secret create grafana-database-user PSQL_DBNAME -
-echo -n $PGPASSWORD | docker secret create grafana-database-name PGPASSWORD -
+echo -n $PSQL_DBNAME | docker secret create PSQL_DBNAME -
+echo -n $PGPASSWORD | docker secret create PGPASSWORD -

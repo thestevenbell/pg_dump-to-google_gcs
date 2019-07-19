@@ -7,15 +7,18 @@ Dockerfile with Alpine Linux postgres-client that used the postgres-client execu
 
 -------
 ## Directions:
-1. Set the environment variables 
-```
-export $PSQL_REMOTE_HOST=<psql:port>
-export $PSQL_USERNAME=<username>
-export $PSQL_DBNAME=<dbname>
-export $PGPASSWORD=<userpassword>
-```
+1. join or init a docker swarm
+1. set the environment variables in the terminal session
 
-1. then start the container using the provided docker-compose.yml file.  
+        export $PSQL_REMOTE_HOST=<psql:port>
+        export $PSQL_USERNAME=<username>
+        export $PSQL_DBNAME=<dbname>
+        export $PGPASSWORD=<userpassword>
+
+1. create the secrets needed in the container
+
+        manage-secrets.sh
+1. start the container using the provided docker-compose.yml file.  
 
         docker stack deploy -c docker-compose.yml pg_dump2GC
     
