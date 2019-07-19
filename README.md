@@ -10,10 +10,12 @@ Dockerfile with Alpine Linux postgres-client that used the postgres-client execu
 1. join or init a docker swarm
 1. set the environment variables in the terminal session
 
-        export $PSQL_REMOTE_HOST=<psql:port>
+        export $PSQL_REMOTE_HOST=<psql>
         export $PSQL_USERNAME=<username>
         export $PSQL_DBNAME=<dbname>
         export $PGPASSWORD=<userpassword>
+        export PSQL_REMOTE_HOST_PORT=<port>
+        export PSQL_SCHEMA=<schema>
 
 1. create the secrets needed in the container
 

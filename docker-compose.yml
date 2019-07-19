@@ -9,13 +9,25 @@ secrets:
    external: true
   PGPASSWORD:
     external: true
- 
+  PSQL_REMOTE_HOST_PORT:
+    external: true
+  PSQL_SCHEMA:
+    external: true
+
 services:
   pg_dump-to-google_sdk:
     image: thestevenbell/pg_dump-to-google_sdk:latest
+    environment:
+      PSQL_REMOTE_HOST_FILE: /run/secrets/PSQL_REMOTE_HOST
+      PSQL_REMOTE_HOST_PORT_FILE: /run/secrets/PSQL_REMOTE_HOST_PORT
+      PSQL_USERNAME_FILE: /run/secrets/PSQL_USERNAME
+      PSQL_DBNAME_FILE: /run/secrets/PSQL_DBNAME
+      PGPASSWORD_FILE: /run/secrets/PGPASSWORD
+      PSQL_SCHEMA_FILE: /run/secrets/PSQL_SCHEMA
     secrets:
       - PSQL_REMOTE_HOST
       - PSQL_USERNAME
       - PSQL_DBNAME
       - PGPASSWORD
-
+      - PSQL_REMOTE_HOST_PORT
+      - PSQL_SCHEMA

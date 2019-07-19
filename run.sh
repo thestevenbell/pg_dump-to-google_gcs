@@ -1,21 +1,26 @@
 #!/bin/sh
 
-# PGPASSWORD=`cat /run/secrets/PGPASSWORD` pg_dump -U postgres -h localhost mydb > mydb.pgsql
-# ~/.pgpass with localhost:5432:mydbname:postgres:mypass Then chmod 600 ~/.pgpass
-# echo "$DB_HOST:5432:$DATABASE:$DB_USER:$PASSWORD" | ssh "$SSH_HOST" "cat > ~/.pgpass; chmod 0600 ~/.pgpass"
 DATETIME=`date "+%Y%m%d-%H%M%S"`
 
-PGPASS=$(cat /run/secrets/PGPASSWORD)
+PSQL_REMOTE_HOST=$(cat ${PSQL_REMOTE_HOST_FILE})
 
-echo PGPASS $PGPASS
+PSQL_USERNAME=$(cat ${PSQL_USERNAME_FILE})
 
-echo ls /run/secrets/PGPASSWORD: 
+PSQL_DBNAME=$(cat ${PSQL_DBNAME_FILE})
 
-ls /run/secrets/PGPASSWORD
+PGPASSWORD=$(cat ${PGPASSWORD_FILE})
 
-PGPASSWORD=$(cat /run/secrets/PGPASSWORD) pg_dump  -h $PSQL_REMOTE_ADDRESS -U $PSQL_USERNAME -D $PSQL_DBNAME -Ft > /data/backup-$DATETIME.tar
+PSQL_REMOTE_HOST_PORT=$(cat ${PSQL_REMOTE_HOST_PORT_FILE})
 
-ls 
+PSQL_SCHEMA=$(cat ${PSQL_SCHEMA_FILE})
+
+echo $PSQL_REMOTE_HOST:$PSQL_REMOTE_HOST_PORT:$PSQL_DBNAME:$PSQL_USERNAME:$PGPASSWORD > ~/.pgpass
+
+chmod 0600 ~/.pgpass
+
+FILE=backup-$DATETIME
+
+pg_dump -U $PSQL_USERNAME -h $PSQL_REMOTE_HOST -p $PSQL_REMOTE_HOST_PORT -d $PSQL_DBNAME -n $PSQL_SCHEMA -Ft > $FILE.tar
 
 exit 0
 
