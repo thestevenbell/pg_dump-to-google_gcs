@@ -1,4 +1,4 @@
-# postgres-client-pg_dump-google-sdk
+# pg_dump-to-google_sdk
 
 
 ## Description:

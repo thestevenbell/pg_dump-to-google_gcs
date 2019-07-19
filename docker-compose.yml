@@ -11,8 +11,8 @@ secrets:
     external: true
  
 services:
-  pg_dump2GCS:
-    image: thestevenbell/postgres-client-pg_dump-google-sdk:latest
+  pg_dump-to-google_sdk:
+    image: thestevenbell/pg_dump-to-google_sdk:latest
     secrets:
       - PSQL_REMOTE_HOST
       - PSQL_USERNAME
