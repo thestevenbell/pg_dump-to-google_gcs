@@ -1,0 +1,21 @@
+version: "3.7"
+
+secrets:
+  PSQL_REMOTE_HOST:
+    external: true
+  PSQL_USERNAME:
+    external: true
+  PSQL_DBNAME:
+   external: true
+  PGPASSWORD:
+    external: true
+ 
+services:
+  pg_dump2GCS:
+    image: thestevenbell/postgres-client-pg_dump-google-sdk:latest
+    secrets:
+      - PSQL_REMOTE_HOST
+      - PSQL_USERNAME
+      - PSQL_DBNAME
+      - PGPASSWORD
+
