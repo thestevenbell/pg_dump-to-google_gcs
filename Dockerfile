@@ -1,4 +1,5 @@
-FROM alpine:3.10.1
+FROM google/cloud-sdk:alpine
+
 RUN apk --update --no-cache add postgresql-client
 
 COPY run.sh /run.sh

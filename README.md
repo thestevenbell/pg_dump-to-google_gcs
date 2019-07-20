@@ -16,6 +16,8 @@ Dockerfile with Alpine Linux postgres-client that used the postgres-client execu
         export $PGPASSWORD=<userpassword>
         export PSQL_REMOTE_HOST_PORT=<port>
         export PSQL_SCHEMA=<schema>
+        export GCS_BUCKET_NAME=<googleCloudStorageBucketName>
+        export PATH_TO_GCLOUD_SCV_ACCOUNT_CREDENTIALS_FILE=<pathToBucket.json>
 
 1. create the secrets needed in the container
 

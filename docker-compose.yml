@@ -13,6 +13,8 @@ secrets:
     external: true
   PSQL_SCHEMA:
     external: true
+  GCLOUD_SCV_ACCOUNT_CREDENTIALS_FILE.json:
+    external: true
 
 services:
   pg_dump-to-google_gcs:
@@ -24,6 +26,8 @@ services:
       PSQL_DBNAME_FILE: /run/secrets/PSQL_DBNAME
       PGPASSWORD_FILE: /run/secrets/PGPASSWORD
       PSQL_SCHEMA_FILE: /run/secrets/PSQL_SCHEMA
+      GCS_BUCKET_NAME: ${GCS_BUCKET_NAME}
+      GOOGLE_APPLICATION_CREDENTIALS: run/secrets/GCLOUD_SCV_ACCOUNT_CREDENTIALS_FILE.json
     secrets:
       - PSQL_REMOTE_HOST
       - PSQL_USERNAME
@@ -31,3 +35,4 @@ services:
       - PGPASSWORD
       - PSQL_REMOTE_HOST_PORT
       - PSQL_SCHEMA
+      - GCLOUD_SCV_ACCOUNT_CREDENTIALS_FILE.json
