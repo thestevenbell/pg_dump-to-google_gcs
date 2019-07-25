@@ -4,7 +4,7 @@
 ## Description:
 Dockerfile with Alpine Linux postgres-client that used the postgres-client executable pg_dump utility to download a backup of a PostrgreSQL database and then use the Google SDK gsutil to send the back up to Google Cloud Storage.
 
-
+The docker container is meant to be executed and then terminate after processing is complete.  It does not have a long running process to keep the container alive.  
 -------
 ## Directions:
 1. join or init a docker swarm
@@ -21,10 +21,12 @@ Dockerfile with Alpine Linux postgres-client that used the postgres-client execu
 
 1. create the secrets needed in the container
 
-        manage-secrets.sh
+        ./manage-secrets.sh
 1. start the container using the provided docker-compose.yml file.  
 
         docker stack deploy -c docker-compose.yml pg_dump2GC
+1. checkout the logs for the container with
+        `docker service logs pg_dump2GC_pg_dump-to-google_gcs -f`
     
 -----
 ## Resources
