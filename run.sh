@@ -34,15 +34,25 @@ else
  exit 1
 fi
 
-
 #> gsutil to send the tar file to Google Cloud Storage 
-echo gcloud auth activate-service-account started.
 
-gcloud auth activate-service-account $(cat $GOOGLE_APPLICATION_CREDENTIALS | jq -r  '.client_email') --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+SERVICE_ACCOUNT_CLIENT_EMAIL=$(cat $GOOGLE_APPLICATION_CREDENTIALS | jq -r  '.client_email') 
 
-if [[ $? != 0 ]]; then 
-    echo gcloud auth activate-service-account failed. Exiting. 
-    exit $?; 
+echo checking to ensure that gcloud authentication has been enabled.
+gcloud auth list | grep $SERVICE_ACCOUNT_CLIENT_EMAIL
+if [[ $? != 0 ]]; then
+    echo gcloud auth was not enabled.
+    echo gcloud auth activate-service-account started.
+
+    gcloud auth activate-service-account $SERVICE_ACCOUNT_CLIENT_EMAIL --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+
+    if [[ $? != 0 ]]; then 
+        echo gcloud auth activate-service-account failed. Exiting. 
+        rm $FILE
+        exit $?; 
+    fi
+else 
+    echo gcloud authentication is enabled.
 fi
 
 
@@ -52,6 +62,7 @@ gsutil cp $FILE ${GCS_BUCKET_NAME}/PSQL_${PSQL_DBNAME}/
 
 if [[ $? != 0 ]]; then 
     echo gsutil cp $FILE ${GCS_BUCKET_NAME}/PSQL_${PSQL_DBNAME}/ failed. Exiting.
+    rm $FILE
     exit $?; 
 fi
 
@@ -64,6 +75,8 @@ if [[ $? != 0 ]]; then
     exit $?; 
 fi
 
-echo Success! The backup file was uploaded. Exiting.  
+echo Success! The backup file was uploaded. Cleaning up and exiting.  
+
+rm $FILE
 
 exit 0
